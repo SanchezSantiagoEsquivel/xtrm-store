@@ -1,0 +1,129 @@
+.shop__header {
+  padding: 56px var(--edge) 32px;
+  border-bottom: 1px solid var(--color-ink-line);
+}
+
+.shop__header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, 52px);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.shop__header p {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.shop__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding: 40px var(--edge) 80px;
+}
+
+.shop__filters {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.shop__filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shop__filter-group label,
+.shop__filter-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.shop__filter-group input[type='search'] {
+  background: var(--color-ink-raised);
+  border: 1.5px solid var(--color-ink-line);
+  color: var(--color-white);
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.shop__filter-group input[type='search']:focus {
+  border-color: var(--color-violet);
+  outline: none;
+}
+
+.shop__radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shop__radio-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-white);
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+}
+
+.shop__radio-list input[type='radio'] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-violet);
+}
+
+.shop__sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-bottom: 28px;
+}
+
+.shop__sort label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+.shop__sort select {
+  background: var(--color-ink-raised);
+  border: 1.5px solid var(--color-ink-line);
+  color: var(--color-white);
+  padding: 9px 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.shop__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 28px 22px;
+}
+
+.shop__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 60px 0;
+  color: var(--color-muted);
+}
+
+@media (min-width: 860px) {
+  .shop__layout {
+    grid-template-columns: 240px 1fr;
+  }
+}

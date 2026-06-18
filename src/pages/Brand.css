@@ -1,0 +1,122 @@
+.brand__eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-violet);
+  margin-bottom: 18px;
+}
+
+.brand__hero {
+  padding: 100px var(--edge) 64px;
+  border-bottom: 1px solid var(--color-ink-line);
+}
+
+.brand__hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 7vw, 68px);
+  text-transform: uppercase;
+  line-height: 1.02;
+  margin: 0 0 28px;
+}
+
+.brand__hero p {
+  max-width: 560px;
+  color: var(--color-muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.brand__story {
+  border-bottom: 1px solid var(--color-ink-line);
+  padding: 64px 0;
+}
+
+.brand__story-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.brand__story-media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--color-ink-raised);
+  border: 1px solid var(--color-ink-line);
+}
+
+.brand__story-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand__story-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 34px);
+  text-transform: uppercase;
+  margin: 0 0 18px;
+  line-height: 1.1;
+}
+
+.brand__story-text p {
+  color: var(--color-muted);
+  line-height: 1.75;
+  max-width: 480px;
+  margin: 0;
+}
+
+.brand__detail-strip {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: flex-end;
+}
+
+.brand__detail-strip img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+}
+
+.brand__detail-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.96));
+}
+
+.brand__detail-text {
+  position: relative;
+  padding: 64px var(--edge);
+  max-width: 560px;
+}
+
+.brand__detail-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4.4vw, 38px);
+  text-transform: uppercase;
+  margin: 0 0 18px;
+  line-height: 1.1;
+}
+
+.brand__detail-text p {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.7;
+  margin: 0 0 28px;
+}
+
+@media (min-width: 860px) {
+  .brand__story-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .brand__story--reverse .brand__story-media {
+    order: 2;
+  }
+}
