@@ -9,8 +9,9 @@ export default function Footer() {
         <div className="footer__brand">
           <img src={logoBlanco} alt="XTRM" className="footer__logo" />
           <p>
-            Gorras hechas para quienes no piden permiso. Diseño propio,
-            bordado en alta densidad, sin medias tintas.
+            Si llevas XTRM llevas una decisión. La decisión de seguir. De
+            mejorar. De no rendirte cuando el progreso se vuelve lento. -
+            FIRE WILL
           </p>
         </div>
 

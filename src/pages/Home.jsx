@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { PRODUCTS } from '../data/products';
 import ProductCard from '../components/ProductCard';
-import moradaFrente from '../assets/morada-frente.png';
+import heroPortada from '../assets/hero-portada.jpg';
 import fuegoLateral from '../assets/fuego-lateral.png';
-import logoNegro from '../assets/logo-negro.png';
+import logoBlanco from '../assets/logo-blanco.png';
 import './Home.css';
 
 export default function Home() {
@@ -13,16 +13,14 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="hero__image-wrap">
-          <img src={moradaFrente} alt="Gorra XTRM Original Founders, vista frontal" />
+          <img src={heroPortada} alt="Equipo XTRM entrenando en el gimnasio" />
         </div>
         <div className="container hero__content">
-          <span className="hero__eyebrow">Colección Founders · Edición limitada</span>
+          <span className="hero__eyebrow">Fire Will</span>
           <h1 className="hero__title">
-            EL FUEGO
+            PARA QUIEN LO INTENTA,
             <br />
-            NO PIDE
-            <br />
-            PERMISO
+            NADA ES IMPOSIBLE
           </h1>
           <p className="hero__subtitle">
             Gorras de diseño propio. Bordado de alta densidad, trazo de pintura
@@ -53,7 +51,7 @@ export default function Home() {
             <img src={fuegoLateral} alt="Gorra XTRM Blackout Fuego, vista lateral" />
           </div>
           <div className="brand-strip__text">
-            <img src={logoNegro} alt="" className="brand-strip__mark" aria-hidden="true" />
+            <img src={logoBlanco} alt="" className="brand-strip__mark" aria-hidden="true" />
             <h2>Nacida en la calle, hecha para durar</h2>
             <p>
               XTRM empezó con un trazo: una X pintada con pintura que aún

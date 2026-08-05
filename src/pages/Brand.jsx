@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import founderLateral from '../assets/morada-lateral.png';
-import fuegoFrente from '../assets/fuego-frente.png';
 import blancoDiagonal from '../assets/blanco-diagonal.png';
 import detras from '../assets/gorra-detras.png';
+import logoBlanco from '../assets/logo-blanco.png';
 import './Brand.css';
 
 export default function Brand() {
@@ -27,18 +27,22 @@ export default function Brand() {
 
       <section className="brand__story">
         <div className="container brand__story-grid">
-          <div className="brand__story-media">
-            <img src={fuegoFrente} alt="Gorra XTRM Blackout Fuego" />
+          <div className="brand__story-media brand__story-media--logo">
+            <img src={logoBlanco} alt="XTRM" />
           </div>
           <div className="brand__story-text">
-            <span className="brand__eyebrow">01 — Origen</span>
-            <h2>De la calle al bordado</h2>
+            <span className="brand__eyebrow">Nuestra historia</span>
             <p>
-              Empezamos diseñando una sola gorra para un grupo cerrado de
-              amigos que patinaban de noche. La X goteada era una broma
-              interna que terminó pidiéndose más de lo que esperábamos. De
-              ahí salió XTRM: una marca que no diseña para el catálogo, sino
-              para la calle que la usa primero.
+              XTRM nació de la hermandad de dos amigos apasionados por el
+              deporte, con el propósito de inspirar a las personas a
+              alcanzar sus objetivos y transformar su estilo de vida.
+            </p>
+            <p>
+              A través de consejos, tips y el ejemplo de su propia
+              disciplina, comenzaron a compartir su proceso, motivando a
+              otros a descubrir ese deporte que realmente los haga vibrar.
+              Así fue como, de manera orgánica, nació una comunidad basada
+              en la constancia, la mentalidad y la determinación.
             </p>
           </div>
         </div>
