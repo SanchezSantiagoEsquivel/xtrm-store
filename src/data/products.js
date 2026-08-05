@@ -25,8 +25,8 @@ export const PRODUCTS = [
     slug: 'classic-blanco',
     name: 'XTRM Classic',
     collection: COLLECTIONS.CLASSIC,
-    price: 129000,
-    compareAtPrice: null,
+    price: 64000,
+    compareAtPrice: 80000,
     colors: [
       {
         id: 'blanco',
@@ -37,8 +37,7 @@ export const PRODUCTS = [
         images: [blancoFrente, blancoLateral, blancoDiagonal, blancoLateral2, gorraDetras],
       },
     ],
-    description:
-      'La gorra que abrió el camino. Bordado XTRM en hilo blanco sobre base negra, con el trazo de pintura goteada que define la marca. Visera curva con ribete blanco contrastado.',
+    description: 'La clásica que queda bien con todo.',
     details: [
       'Bordado 3D de alta densidad, hilo blanco mate',
       'Estructura semi-rígida, 6 paneles',
@@ -52,10 +51,10 @@ export const PRODUCTS = [
   {
     id: 'xtrm-blackout-fuego',
     slug: 'blackout-fuego',
-    name: 'XTRM Blackout Fuego',
+    name: 'Blackout Fuego',
     collection: COLLECTIONS.BLACKOUT,
-    price: 149000,
-    compareAtPrice: 169000,
+    price: 85000,
+    compareAtPrice: null,
     colors: [
       {
         id: 'negro-total',
@@ -66,8 +65,7 @@ export const PRODUCTS = [
         images: [fuegoFrente, fuegoDiagonal, fuegoLateral, fuegoLateral2, gorraDetras],
       },
     ],
-    description:
-      'Tono sobre tono. Bordado XTRM en negro sobre negro y llamas talladas en relieve sobre la visera. Para los que prefieren que el diseño se sienta antes de que se vea.',
+    description: 'Llamas que transmiten fuerza y personalidad - Fire Will',
     details: [
       'Bordado tonal 3D negro sobre negro',
       'Visera con llamas en relieve bordado texturizado',
@@ -81,9 +79,9 @@ export const PRODUCTS = [
   {
     id: 'xtrm-founders-morado',
     slug: 'founders-morado',
-    name: 'XTRM Original Founders',
+    name: 'FOUNDERS Edition',
     collection: COLLECTIONS.FOUNDERS,
-    price: 179000,
+    price: 115000,
     compareAtPrice: null,
     limitedEdition: true,
     colors: [
