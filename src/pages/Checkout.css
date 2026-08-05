@@ -242,6 +242,11 @@
   color: var(--color-violet);
 }
 
+.checkout__check--error {
+  border-color: var(--color-ember);
+  color: var(--color-ember);
+}
+
 .checkout__confirmation h1 {
   font-family: var(--font-display);
   font-size: clamp(28px, 5vw, 40px);

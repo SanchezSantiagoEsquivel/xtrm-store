@@ -21,6 +21,17 @@ Fuente: `docs/TEXTOS XTRM.pdf` y `docs/Cambios pagina.pdf`
 - [x] **1. Logo/favicon** — recibidos los archivos reales con transparencia (los anteriores en `src/assets` eran JPEGs con fondo negro horneado, por eso el "cuadro negro"). `Logo Blanco XTRM.png` → `src/assets/logo-blanco.png` (usado en Header, Footer, Home y `/marca`). `FAVICON.png` → `public/favicon.png`, centrado en un lienzo cuadrado 512×512 con margen (el original era 290×536, no cuadrado).
 - [x] **2. Hero** — `PORTADA.JPEG` (export oficial de Lightroom, más nítido que la captura de WhatsApp) reemplaza `src/assets/hero-portada.jpg`. Recomprimida de 913KB a 385KB (calidad de exportación era casi sin pérdida, innecesaria para web) sin pérdida visible.
 
+## Pasarela de pagos (Wompi)
+
+- [x] Integrado el Web Checkout de Wompi: `api/wompi-integrity.js` (function serverless de Vercel) calcula el total en el servidor y firma la transacción; `Checkout.jsx` redirige a Wompi y verifica el resultado al volver (`?id=`) contra la API pública de Wompi.
+- [ ] **Falta que pongas las llaves reales.** Crea una cuenta en [comercios.wompi.co](https://comercios.wompi.co), copia del dashboard (modo Sandbox para probar):
+  - `VITE_WOMPI_PUBLIC_KEY` (empieza con `pub_test_`)
+  - `WOMPI_INTEGRITY_SECRET` (empieza con `test_integrity_`)
+  
+  Ponlas con `vercel env add VITE_WOMPI_PUBLIC_KEY` y `vercel env add WOMPI_INTEGRITY_SECRET` (o desde el dashboard de Vercel → Settings → Environment Variables) y vuelve a desplegar. Sin esas variables el botón de pago muestra un error en vez de fallar en silencio.
+  - Cuando quieras cobrar de verdad, repite el proceso con las llaves `pub_prod_` / `prod_integrity_` de producción.
+- [ ] Wompi también manda **webhooks** para confirmar pagos async (PSE puede tardar). Este checkout solo verifica por el `id` que Wompi devuelve al redirigir — no hay backend/base de datos para registrar pedidos todavía, así que un pago que quede en `PENDING` no se actualiza solo. Si vas a vender en serio, hace falta un endpoint de webhook + donde guardar los pedidos (hoy no hay base de datos, todo vive en el navegador).
+
 ## Pendiente
 
 - [ ] **3. Borde blanco** — sigue sin resolver: la nueva foto de "Gorra Detras" también trae el fondo de estudio claro horneado, así que el problema persiste igual que con las fotos anteriores. Se resuelve con fotos a las que se les quite el fondo (no es un cambio de código) o dejándolo así.
