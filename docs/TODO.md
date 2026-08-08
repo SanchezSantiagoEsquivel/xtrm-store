@@ -52,7 +52,7 @@ Fuente: `docs/TEXTOS XTRM.pdf` y `docs/Cambios pagina.pdf`
 
 ### Necesita definición — feedback contradictorio o incompleto
 
-- [ ] **Logo en "Nuestra historia"** (`Brand.jsx`, sección que reemplacé por pedido del PDF) — Diego: "En la historia me tramaba que estuviera el logo que tengo de perfil" (`image-2.png`). Ahí ya puse `logo-blanco.png` (el logo grafiti grande), pero por cómo lo dice ("el que tengo de perfil") suena a que quiere el logo *compacto* que usa de foto de perfil — que podría ser este mismo archivo achicado, o un archivo distinto que no tengo. **Necesito que Diego mande el archivo exacto o confirme si es el mismo logo, solo que más pequeño.**
+- [x] **Logo en "Nuestra historia"** — resuelto: Santiago confirmó que la foto de perfil de Diego es `docs/pagina XTRM/Logo Blanco XTRM.png`, y ese archivo es byte a byte idéntico (mismo MD5) al `src/assets/logo-blanco.png` que ya está puesto en esa sección. No hacía falta ningún cambio.
 - [x] **Sección del Home con la foto del gorro repetida** (`image-4.png`, mismo `brand-strip` del primer punto) — resuelto de por sí: se borró la sección completa junto con el primer punto, así que la foto repetida ya no está. Si en algún momento prefieren esa sección de vuelta pero solo cambiando la foto (una de las 3 opciones que dio Diego), avisen.
 
 ## Asset recibido sin usar todavía
