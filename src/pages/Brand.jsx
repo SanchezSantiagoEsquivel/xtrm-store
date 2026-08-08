@@ -8,22 +8,7 @@ import './Brand.css';
 export default function Brand() {
   return (
     <main className="brand">
-      <section className="brand__hero">
-        <div className="container">
-          <span className="brand__eyebrow">Manifiesto</span>
-          <h1>
-            UNA X PINTADA
-            <br />
-            QUE NUNCA SE SECÓ
-          </h1>
-          <p>
-            XTRM nació de un trazo hecho rápido, con pintura que aún goteaba
-            cuando se fotografió. Decidimos no corregirlo. Ese goteo se
-            convirtió en nuestra firma: la prueba de que algo real estuvo
-            ahí.
-          </p>
-        </div>
-      </section>
+      <h1 className="visually-hidden">La marca — XTRM</h1>
 
       <section className="brand__story">
         <div className="container brand__story-grid">

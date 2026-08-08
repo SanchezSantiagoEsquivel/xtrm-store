@@ -23,6 +23,12 @@ Fuente: `docs/TEXTOS XTRM.pdf` y `docs/Cambios pagina.pdf`
 
 ## Pasarela de pagos (Wompi)
 
+- [x] **Pago de prueba real hecho de punta a punta** (8 ago) contra producción, sandbox de Wompi: agregar al carrito → checkout → Wompi → tarjeta de prueba `4242...` → "¡Pago aprobado!" → vuelve a `xtrm-store.vercel.app/checkout?id=...` → "PEDIDO CONFIRMADO". Probé también la tarjeta de rechazo `4111...` → Wompi la rechaza → nuestro sitio muestra el estado de error correctamente, sin confirmar el pedido.
+- [x] **Suite de tests E2E con Playwright** (`playwright.config.js`, `e2e/checkout.spec.js`, `npm run test:e2e`) — corre el flujo completo de verdad contra Wompi sandbox (tarjeta aprobada y rechazada) más los casos del endpoint `/api/wompi-integrity` (recalcula el total, ignora precio manipulado por el cliente, rechaza producto inválido/carrito vacío). No son mocks: si Wompi cambia su checkout o la firma se rompe, estos tests fallan.
+  - **Importante:** corren contra un deploy real (`E2E_BASE_URL`, por defecto producción), no contra `localhost`. Wompi bloquea con un 403 de CloudFront cualquier `redirect-url` que no sea https pública.
+  - Nota de infraestructura encontrada en el camino: `vercel dev` no sirve para desarrollo local de este proyecto — la regla de rewrite SPA de `vercel.json` (necesaria en producción) hace que también reescriba las peticiones internas de Vite (`/@vite/client`, `/src/main.jsx`) hacia `index.html`, rompiendo el HMR. Para probar `api/` en local se agregó `e2e/api-shim.mjs` + proxy en `vite.config.js`, así que `npm run dev` + ese shim sí funcionan (solo la API, el pago real solo se puede probar contra un deploy).
+  - Las llaves de sandbox de Wompi ya quedaron guardadas en Vercel (Development y Production) para que esto funcione sin configuración extra.
+
 - [x] Integrado el Web Checkout de Wompi: `api/wompi-integrity.js` (function serverless de Vercel) calcula el total en el servidor y firma la transacción; `Checkout.jsx` redirige a Wompi y verifica el resultado al volver (`?id=`) contra la API pública de Wompi.
 - [ ] **Falta que pongas las llaves reales.** Crea una cuenta en [comercios.wompi.co](https://comercios.wompi.co), copia del dashboard (modo Sandbox para probar):
   - `VITE_WOMPI_PUBLIC_KEY` (empieza con `pub_test_`)
@@ -35,6 +41,19 @@ Fuente: `docs/TEXTOS XTRM.pdf` y `docs/Cambios pagina.pdf`
 ## Pendiente
 
 - [ ] **3. Borde blanco** — sigue sin resolver: la nueva foto de "Gorra Detras" también trae el fondo de estudio claro horneado, así que el problema persiste igual que con las fotos anteriores. Se resuelve con fotos a las que se les quite el fondo (no es un cambio de código) o dejándolo así.
+
+## Feedback de Diego (6 ago, `docs/new_changes.md`)
+
+- [x] **Borrar sección "Nacida en la calle, hecha para durar"** (`Home.jsx:48`, `brand-strip`) — Diego: "Sale ese logo todo deformado y pues lo que dice ahí ese texto nada que ver, eliminarlo" (`image.png`). Es la sección con el logo grande + esa frase, justo debajo de "Destacadas" en el Home. Borrar el `<section>` completo (logo, texto y botón "Conocer la marca") y limpiar el CSS (`.brand-strip*` en `Home.css`) e imports que queden sin usar.
+  - *Por qué se ve deformado:* no lo tengo claro todavía — el CSS actual (`height: 28px; width: auto`) no debería estirarlo así. Como la acción es borrar la sección entera, no hace falta diagnosticarlo, pero si en algún punto se vuelve a usar ese logo hay que revisar por qué se deforma antes.
+- [x] **Borrar el Manifiesto** (`Brand.jsx:11`, `brand__hero`, "UNA X PINTADA QUE NUNCA SE SECÓ") — Diego: "Ese manifiesto eliminarlo también" (`image-1.png`). Borrar esa sección de `/marca` y su CSS (`.brand__hero*` en `Brand.css`).
+- [x] **Borrar el subtítulo del hero** (`Home.jsx:25`, "Gorras de diseño propio. Bordado de alta densidad...") — Diego: "Y eliminar ese texto" (`image-3.png`, circulado en verde). Queda el título + los botones, sin el párrafo.
+- [x] **Favicon: a Diego no le aparece en la pestaña del computador** — el archivo sí está bien servido en producción (`/favicon.png` responde 200, PNG correcto), así que era cache del navegador. Cambié `index.html` para pedirlo como `/favicon.png?v=2`, eso fuerza a que cualquier navegador lo vuelva a descargar en vez de usar el que tenía guardado. Aun así dile a Diego que si sigue sin verlo pruebe con recarga forzada (`Cmd+Shift+R`) o una pestaña de incógnito.
+
+### Necesita definición — feedback contradictorio o incompleto
+
+- [ ] **Logo en "Nuestra historia"** (`Brand.jsx`, sección que reemplacé por pedido del PDF) — Diego: "En la historia me tramaba que estuviera el logo que tengo de perfil" (`image-2.png`). Ahí ya puse `logo-blanco.png` (el logo grafiti grande), pero por cómo lo dice ("el que tengo de perfil") suena a que quiere el logo *compacto* que usa de foto de perfil — que podría ser este mismo archivo achicado, o un archivo distinto que no tengo. **Necesito que Diego mande el archivo exacto o confirme si es el mismo logo, solo que más pequeño.**
+- [x] **Sección del Home con la foto del gorro repetida** (`image-4.png`, mismo `brand-strip` del primer punto) — resuelto de por sí: se borró la sección completa junto con el primer punto, así que la foto repetida ya no está. Si en algún momento prefieren esa sección de vuelta pero solo cambiando la foto (una de las 3 opciones que dio Diego), avisen.
 
 ## Asset recibido sin usar todavía
 
