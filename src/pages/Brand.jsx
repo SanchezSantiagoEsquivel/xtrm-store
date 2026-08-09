@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import founderLateral from '../assets/morada-lateral.png';
+import founderLateral from '../assets/morada-lateral-3.png';
 import blancoDiagonal from '../assets/blanco-diagonal.png';
 import detras from '../assets/gorra-detras.png';
-import logoBlanco from '../assets/logo-blanco.png';
+import logoContorno from '../assets/xtrm-bordado-contorno-blanco.png';
 import './Brand.css';
 
 export default function Brand() {
@@ -13,7 +13,7 @@ export default function Brand() {
       <section className="brand__story">
         <div className="container brand__story-grid">
           <div className="brand__story-media brand__story-media--logo">
-            <img src={logoBlanco} alt="XTRM" />
+            <img src={logoContorno} alt="XTRM" />
           </div>
           <div className="brand__story-text">
             <span className="brand__eyebrow">Nuestra historia</span>
@@ -59,7 +59,7 @@ export default function Brand() {
           </div>
           <div className="brand__story-text">
             <span className="brand__eyebrow">03 — Founders</span>
-            <h2>Los primeros, marcados</h2>
+            <h2>Los miembros fundadores</h2>
             <p>
               La colección Founders existe para quienes compraron antes de
               que XTRM tuviera un catálogo. La estrella morada en el
