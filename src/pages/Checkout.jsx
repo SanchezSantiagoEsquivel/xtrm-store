@@ -117,6 +117,17 @@ export default function Checkout() {
         reference,
         'signature:integrity': signature,
         'redirect-url': `${window.location.origin}/checkout`,
+        // Para que el webhook de confirmación de pedido tenga con quién
+        // contactar y a dónde enviar, sin depender de que el cliente vuelva.
+        'customer-data:email': form.email,
+        'customer-data:full-name': form.fullName,
+        'customer-data:phone-number': form.phone,
+        'shipping-address:address-line-1': form.address,
+        'shipping-address:city': form.city,
+        'shipping-address:region': form.department,
+        'shipping-address:country': 'CO',
+        'shipping-address:name': form.fullName,
+        'shipping-address:phone-number': form.phone,
       });
       window.location.assign(`https://checkout.wompi.co/p/?${params.toString()}`);
     } catch {

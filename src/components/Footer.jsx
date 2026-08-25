@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="footer__col">
           <h3>Marca</h3>
           <Link to="/marca">Nuestra historia</Link>
-          <a href="mailto:hola@xtrm.com">Contacto</a>
+          <a href="mailto:xtrmcorps@gmail.com">Contacto</a>
         </div>
       </div>
 
