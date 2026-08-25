@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ponytail: URLs fijas a xtrm-store.vercel.app — cuando tengan dominio propio, actualizar aquí -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://xtrm-store.vercel.app/</loc></url>
+  <url><loc>https://xtrm-store.vercel.app/tienda</loc></url>
+  <url><loc>https://xtrm-store.vercel.app/marca</loc></url>
+  <url><loc>https://xtrm-store.vercel.app/producto/classic-blanco</loc></url>
+  <url><loc>https://xtrm-store.vercel.app/producto/blackout-fuego</loc></url>
+  <url><loc>https://xtrm-store.vercel.app/producto/founders-morado</loc></url>
+</urlset>

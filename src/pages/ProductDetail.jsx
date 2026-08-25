@@ -190,10 +190,6 @@ function ProductVideoBlock({ product }) {
           <span>Video del producto próximamente</span>
         </div>
       </div>
-      <p className="product-video__hint">
-        Reemplaza este bloque por el video real subiendo el archivo .mp4 al
-        proyecto y usando una etiqueta &lt;video&gt; en su lugar.
-      </p>
     </div>
   );
 }

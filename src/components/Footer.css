@@ -68,6 +68,6 @@
 
 @media (min-width: 720px) {
   .footer__top {
-    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    grid-template-columns: 1.6fr 1fr 1fr;
   }
 }

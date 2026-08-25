@@ -27,13 +27,6 @@ export default function Footer() {
           <Link to="/marca">Nuestra historia</Link>
           <a href="mailto:hola@xtrm.com">Contacto</a>
         </div>
-
-        <div className="footer__col">
-          <h3>Ayuda</h3>
-          <a href="#envios">Envíos</a>
-          <a href="#cambios">Cambios y devoluciones</a>
-          <a href="#tallas">Guía de talla</a>
-        </div>
       </div>
 
       <div className="container footer__bottom">
