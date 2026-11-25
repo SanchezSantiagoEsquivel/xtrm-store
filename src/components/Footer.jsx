@@ -26,6 +26,20 @@ export default function Footer() {
           <h3>Marca</h3>
           <Link to="/marca">Nuestra historia</Link>
           <a href="mailto:xtrmcorps@gmail.com">Contacto</a>
+          <a href="tel:+573184066969">318 406 6969</a>
+        </div>
+
+        <div className="footer__col">
+          <h3>Ayuda</h3>
+          <Link to="/politicas#envios">Envíos</Link>
+          <Link to="/politicas#retracto">Cambios y retracto</Link>
+          <Link to="/politicas#garantia">Garantía</Link>
+          <Link to="/politicas#quejas">Quejas y reclamos</Link>
+          <Link to="/politicas#datos">Datos personales</Link>
+          <Link to="/politicas#vendedor">Quién vende</Link>
+          <a href="https://www.sic.gov.co" target="_blank" rel="noreferrer">
+            Superintendencia de Industria y Comercio
+          </a>
         </div>
       </div>
 

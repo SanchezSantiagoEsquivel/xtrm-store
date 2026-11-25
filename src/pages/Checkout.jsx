@@ -20,6 +20,7 @@ const initialForm = {
   city: '',
   department: '',
   notes: '',
+  accepted: false,
 };
 
 export default function Checkout() {
@@ -86,6 +87,7 @@ export default function Checkout() {
     if (!form.address.trim()) next.address = 'Ingresa tu dirección de envío';
     if (!form.city.trim()) next.city = 'Ingresa tu ciudad';
     if (!form.department.trim()) next.department = 'Ingresa tu departamento';
+    if (!form.accepted) next.accepted = 'Debes aceptar las políticas para continuar';
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -311,8 +313,24 @@ export default function Checkout() {
             <legend>Método de pago</legend>
             <p className="checkout__payment-note">
               Al pagar te llevamos a Wompi (pasarela segura) para elegir
-              tarjeta, PSE o Nequi y completar el pago.
+              tarjeta, PSE o Nequi y completar el pago. El pedido llega en
+              alrededor de 8 días hábiles, según la región.
             </p>
+            <label className="checkout__consent" htmlFor="accepted">
+              <input
+                id="accepted"
+                type="checkbox"
+                checked={form.accepted}
+                onChange={(e) => setForm((f) => ({ ...f, accepted: e.target.checked }))}
+                aria-invalid={!!errors.accepted}
+              />
+              <span>
+                Acepto las <Link to="/politicas" target="_blank">políticas de la tienda</Link> y
+                autorizo el uso de mis datos para gestionar el pedido, según la{' '}
+                <Link to="/politicas#datos" target="_blank">política de datos</Link>.
+              </span>
+            </label>
+            {errors.accepted && <span className="checkout__error">{errors.accepted}</span>}
             {errors.form && <span className="checkout__error">{errors.form}</span>}
           </fieldset>
 

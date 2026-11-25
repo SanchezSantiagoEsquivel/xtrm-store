@@ -28,3 +28,6 @@ dist-ssr
 test-results
 playwright-report
 blob-report
+
+# Documentos personales (RUT); tampoco se suben a Vercel
+/*.pdf

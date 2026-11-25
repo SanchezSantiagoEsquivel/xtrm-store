@@ -10,6 +10,7 @@ import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
 import Brand from './pages/Brand';
 import Checkout from './pages/Checkout';
+import Policies from './pages/Policies';
 
 export default function App() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/producto/:slug" element={<ProductDetail />} />
         <Route path="/marca" element={<Brand />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/politicas" element={<Policies />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />

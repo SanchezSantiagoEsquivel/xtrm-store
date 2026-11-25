@@ -155,9 +155,10 @@ export default function ProductDetail() {
               {activeTab === 'care' && <p>{product.care}</p>}
               {activeTab === 'shipping' && (
                 <p>
-                  Envíos a todo el país en 3–6 días hábiles. Envío gratis en
-                  compras superiores a {formatPrice(200000)}. Recibes el
-                  número de guía por correo apenas se despache tu pedido.
+                  Envíos a todo el país en alrededor de 8 días hábiles, según la
+                  región. Envío gratis en compras desde {formatPrice(200000)}.
+                  Recibes el número de guía por correo o WhatsApp apenas se
+                  despache tu pedido.
                 </p>
               )}
             </div>

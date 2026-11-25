@@ -129,6 +129,27 @@
   font-style: italic;
 }
 
+.checkout__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.checkout__consent input {
+  accent-color: var(--color-violet);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.checkout__consent a {
+  text-decoration: underline;
+}
+
 .checkout__submit {
   padding: 18px 28px;
 }

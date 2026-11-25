@@ -43,6 +43,7 @@ async function fillShippingAndPay(page) {
   await page.fill('#address', BUYER.address);
   await page.fill('#city', BUYER.city);
   await page.fill('#department', BUYER.department);
+  await page.check('#accepted');
 
   await Promise.all([
     page.waitForURL(/checkout\.wompi\.co/, { timeout: 20_000 }),
