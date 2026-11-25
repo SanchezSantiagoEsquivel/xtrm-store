@@ -6,7 +6,8 @@ Mantenerlo al día cuando cambie algo de lo que dice.
 ## Qué es
 Tienda de gorras XTRM (Colombia, precios en COP). Cliente: Diego. Desarrollo: Santiago.
 
-- **Sitio:** https://xtrm-store.vercel.app (en producción, sin dominio propio todavía)
+- **Sitio:** https://xtrm-store-wheat.vercel.app (desde el 25 nov 2026, cuenta de Vercel de la marca, equipo `xtrmcorps-9541`)
+- **Sitio viejo:** https://xtrm-store.vercel.app, sigue activo y cobrando con código viejo, en una cuenta de Vercel que no se encontró
 - **Repo:** https://github.com/SanchezSantiagoEsquivel/xtrm-store, rama `main`
 - **Contacto y avisos de pedidos:** xtrmcorps@gmail.com
 
@@ -37,9 +38,10 @@ Variables (ver `.env.example`): `VITE_WOMPI_PUBLIC_KEY`, `WOMPI_INTEGRITY_SECRET
 - `docs/TODO.md` tiene partes viejas (pide llaves y webhook que ya existen). `README.md` es la plantilla de Vite.
 
 ## En curso: dominio propio
-Santiago ya compró un dominio. **Falta saber cuál y en qué registrador.** Esto reemplaza la decisión anterior de quedarse en `vercel.app` (`docs/PRE-LANZAMIENTO.md`).
+Santiago ya compró un dominio. **DNS en Cloudflare; falta saber cuál es.** Registros en "DNS only". Esto reemplaza la decisión anterior de quedarse en `vercel.app` (`docs/PRE-LANZAMIENTO.md`).
 
-- [ ] Entrar a la cuenta dueña del proyecto en Vercel. El 25 nov el CLI quedó en una cuenta sin acceso (403). Proyecto vinculado en `.vercel/project.json`.
+- [x] Proyecto creado en `xtrmcorps-9541` (framework vite), variables solo en Production y desplegado
+- [ ] Cambiar la URL de eventos en Wompi a `https://xtrm-store-wheat.vercel.app/api/wompi-webhook` (hoy probablemente apunta al sitio viejo; `xtrm-store-blue` se borró)
 - [ ] Vercel → Settings → Domains: agregar el dominio y `www`
 - [ ] DNS en el registrador con los valores que muestre Vercel; no tocar MX ni TXT
 - [ ] Cambiar URLs fijas: `index.html`, `public/robots.txt`, `public/sitemap.xml`, `playwright.config.js`
@@ -55,13 +57,13 @@ Santiago ya compró un dominio. **Falta saber cuál y en qué registrador.** Est
 - Fotos de producto con fondo limpio (el borde blanco viene en la foto)
 - `xtrm-store.html` (2,3 MB) está sin versionar en la raíz: decidir si se borra
 
-### Corregido el 25 nov, **sin deploy todavía**
+### Corregido el 25 nov, desplegado y en `main`
 - El correo de pedido incluye productos (van codificados en la referencia de Wompi) y notas de entrega (`address-line-2`).
 - Si Resend falla, el webhook registra el error y responde 500 para que Wompi reintente.
 - Pago `PENDING` o no verificable: pantalla propia con "no vuelvas a pagar" y botón para consultar de nuevo.
 - La pantalla final ya no promete un correo de confirmación que no se envía.
 
-Falta verificar tras el deploy, con Wompi real: que acepte la referencia nueva y que el evento traiga `address_line_2` (su documentación no lo confirma).
+Wompi abre el checkout con la referencia nueva (25 nov, sin pagar). Falta una compra real para confirmar el correo y que el evento traiga `address_line_2` (su documentación no lo confirma).
 
 ### Sin corregir
 - Si faltan `WOMPI_EVENTS_SECRET` o `RESEND_API_KEY` en Vercel, el webhook responde 200 y el aviso se pierde.
