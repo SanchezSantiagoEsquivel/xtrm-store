@@ -29,7 +29,7 @@ export default function Checkout() {
   const [errors, setErrors] = useState({});
   const [placing, setPlacing] = useState(false);
   const [orderId, setOrderId] = useState(null);
-  // form | verifying | declined | verify-error
+  // form | verifying | approved | pending | declined | verify-error
   const [payment, setPayment] = useState(() =>
     searchParams.get('id') ? { status: 'verifying' } : { status: 'form' }
   );
@@ -54,12 +54,16 @@ export default function Checkout() {
           clearCart();
           sessionStorage.removeItem(PENDING_ORDER_KEY);
           setPayment({ status: 'approved' });
+          setSearchParams({}, { replace: true });
+        } else if (['DECLINED', 'VOIDED', 'ERROR'].includes(tx?.status)) {
+          setPayment({ status: 'declined', wompiStatus: tx.status });
+          setSearchParams({}, { replace: true });
         } else {
-          setPayment({ status: 'declined', wompiStatus: tx?.status ?? 'DESCONOCIDO' });
+          // Sin estado final: se deja el ?id= en la URL para poder consultar otra vez.
+          setPayment({ status: tx?.status === 'PENDING' ? 'pending' : 'verify-error' });
         }
       })
-      .catch(() => setPayment({ status: 'verify-error' }))
-      .finally(() => setSearchParams({}, { replace: true }));
+      .catch(() => setPayment({ status: 'verify-error' }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -129,6 +133,8 @@ export default function Checkout() {
         'shipping-address:name': form.fullName,
         'shipping-address:phone-number': form.phone,
       });
+      const notes = form.notes.trim().replace(/\s+/g, ' ');
+      if (notes) params.set('shipping-address:address-line-2', notes);
       window.location.assign(`https://checkout.wompi.co/p/?${params.toString()}`);
     } catch {
       setPlacing(false);
@@ -147,17 +153,35 @@ export default function Checkout() {
     );
   }
 
-  if (payment.status === 'declined' || payment.status === 'verify-error') {
+  if (payment.status === 'pending' || payment.status === 'verify-error') {
+    return (
+      <main className="checkout checkout--confirmation">
+        <div className="container checkout__confirmation">
+          <h1>{payment.status === 'pending' ? 'Tu pago está en proceso' : 'No pudimos verificar tu pago'}</h1>
+          <p>
+            {payment.status === 'pending'
+              ? 'Tu banco todavía no confirma el resultado. Puede tardar unos minutos.'
+              : 'No logramos consultar el resultado con Wompi. Es posible que el cobro sí se haya hecho.'}
+            {' '}Por favor <strong>no vuelvas a pagar</strong> hasta conocer el resultado. Tu
+            carrito sigue guardado.
+          </p>
+          <button type="button" className="btn btn-primary" onClick={() => window.location.reload()}>
+            Consultar de nuevo
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  if (payment.status === 'declined') {
     return (
       <main className="checkout checkout--confirmation">
         <div className="container checkout__confirmation">
           <span className="checkout__check checkout__check--error">✕</span>
           <h1>El pago no se completó</h1>
           <p>
-            {payment.status === 'declined'
-              ? `Wompi reportó el estado "${payment.wompiStatus}". No se hizo ningún cobro.`
-              : 'No pudimos verificar el resultado del pago. Si alcanzaste a pagar, escríbenos con tu correo.'}
-            {' '}Tu carrito sigue guardado, puedes intentarlo de nuevo.
+            Wompi reportó el estado &quot;{payment.wompiStatus}&quot;. No se hizo ningún cobro.
+            Tu carrito sigue guardado, puedes intentarlo de nuevo.
           </p>
           <Link to="/checkout" className="btn btn-primary" onClick={() => setPayment({ status: 'form' })}>
             Volver a intentar
@@ -175,9 +199,8 @@ export default function Checkout() {
           <h1>Pedido confirmado</h1>
           <p>
             Gracias, {form.fullName.split(' ')[0]}. Tu pedido{' '}
-            <strong>{orderId}</strong> fue recibido. Te enviamos la
-            confirmación a <strong>{form.email}</strong> y el número de guía
-            apenas se despache.
+            <strong>{orderId}</strong> fue recibido. Guarda este número.
+            Te enviaremos el número de guía a tu correo apenas se despache.
           </p>
           <Link to="/tienda" className="btn btn-primary">Seguir comprando</Link>
         </div>
@@ -276,6 +299,7 @@ export default function Checkout() {
               <textarea
                 id="notes"
                 rows="3"
+                maxLength={150}
                 value={form.notes}
                 onChange={handleChange('notes')}
               />

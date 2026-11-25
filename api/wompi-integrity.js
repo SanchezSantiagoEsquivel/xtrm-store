@@ -1,14 +1,5 @@
 import { createHash } from 'node:crypto';
-
-// ponytail: precios duplicados de src/data/products.js porque ese archivo importa
-// assets de imagen (no cargan en el runtime de Node de la function). Si cambian
-// los precios ahí, hay que actualizarlos aquí también. Subir a un JSON compartido
-// si el catálogo crece más allá de estos 3.
-const PRICES = {
-  'xtrm-classic-blanco': 64000,
-  'xtrm-blackout-fuego': 85000,
-  'xtrm-founders-morado': 115000,
-};
+import { CATALOG, buildReference } from './_catalog.js';
 
 const SHIPPING_FLAT_RATE = 12000;
 const FREE_SHIPPING_THRESHOLD = 200000;
@@ -36,7 +27,7 @@ export default async function handler(req, res) {
   // en un monto que venga del cliente, para que no se pueda pagar menos.
   let subtotal = 0;
   for (const item of items) {
-    const price = PRICES[item.productId];
+    const price = Object.hasOwn(CATALOG, item.productId) && CATALOG[item.productId].price;
     const quantity = Number(item.quantity);
     if (!price || !Number.isInteger(quantity) || quantity <= 0 || quantity > 20) {
       res.status(400).json({ error: `Producto inválido: ${item.productId}` });
@@ -48,7 +39,7 @@ export default async function handler(req, res) {
   const total = subtotal + shipping;
   const amountInCents = total * 100;
   const currency = 'COP';
-  const reference = `XTRM-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+  const reference = buildReference(items);
 
   const signature = createHash('sha256')
     .update(`${reference}${amountInCents}${currency}${secret}`)

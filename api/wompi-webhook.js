@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { describeItems } from './_catalog.js';
 
 // ponytail: sin base de datos — este webhook solo avisa por correo cuando se
 // aprueba un pago, no persiste el pedido. Si el volumen crece, guardar en una
@@ -46,7 +47,14 @@ export default async function handler(req, res) {
 
   const tx = data?.transaction;
   if (event === 'transaction.updated' && tx?.status === 'APPROVED') {
-    await sendOrderEmail(tx, notifyEmail, resendKey).catch(() => {});
+    try {
+      await sendOrderEmail(tx, notifyEmail, resendKey);
+    } catch (err) {
+      // Con un status distinto de 200 Wompi reintenta (a los 30 min, 3 h y 24 h).
+      console.error(`No se pudo avisar del pedido ${tx.reference}`, err);
+      res.status(500).json({ error: 'No se pudo enviar el aviso del pedido' });
+      return;
+    }
   }
 
   res.status(200).json({ received: true });
@@ -57,6 +65,7 @@ async function sendOrderEmail(tx, to, apiKey) {
   const customer = tx.customer_data;
   const lines = [
     `Referencia: ${tx.reference}`,
+    `Productos: ${describeItems(tx.reference).join(', ') || 'N/A'}`,
     `Monto: $${(tx.amount_in_cents / 100).toLocaleString('es-CO')} COP`,
     `Método de pago: ${tx.payment_method_type ?? 'N/A'}`,
     `Correo del cliente: ${tx.customer_email ?? 'N/A'}`,
@@ -66,16 +75,20 @@ async function sendOrderEmail(tx, to, apiKey) {
   }
   if (shipping) {
     lines.push(
-      `Dirección: ${[shipping.address_line_1, shipping.address_line_2].filter(Boolean).join(' ')}`,
-      `Ciudad/región: ${shipping.city ?? ''}, ${shipping.region ?? ''}`
+      `Dirección: ${shipping.address_line_1 ?? 'N/A'}`,
+      `Ciudad/región: ${shipping.city ?? ''}, ${shipping.region ?? ''}`,
+      // Checkout.jsx manda las notas de entrega en address-line-2
+      `Notas de entrega: ${shipping.address_line_2 || 'Ninguna'}`
     );
   }
 
-  await fetch('https://api.resend.com/emails', {
+  const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
+      // Un reintento de Wompi no duplica el correo
+      'Idempotency-Key': `pedido-${tx.id}`,
     },
     body: JSON.stringify({
       from: 'XTRM Store <onboarding@resend.dev>',
@@ -84,4 +97,5 @@ async function sendOrderEmail(tx, to, apiKey) {
       text: lines.join('\n'),
     }),
   });
+  if (!response.ok) throw new Error(`Resend ${response.status}: ${await response.text()}`);
 }
