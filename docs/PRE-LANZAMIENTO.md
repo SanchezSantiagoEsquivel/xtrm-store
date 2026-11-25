@@ -18,7 +18,7 @@ No existe esa información en ningún lado del sitio (los enlaces que apuntaban 
 ### 2. Deploy automático
 El repositorio de GitHub no está conectado a Vercel. Cada cambio necesita que yo corra un deploy manual — no se publica solo al hacer push.
 
-**Qué necesito de ustedes (Diego, dueño del repo):** aprobar el permiso de la GitHub App de Vercel sobre el repositorio `xtrm-store` (se las pide GitHub al intentar conectar, dos clics).
+**Qué falta (Santiago, dueño del repo):** conectar GitHub en la cuenta de Vercel de la marca (Account Settings → Authentication) y después el repositorio en el proyecto (Settings → Git).
 
 ---
 
@@ -35,5 +35,5 @@ El repositorio de GitHub no está conectado a Vercel. Cada cambio necesita que y
 - Enlaces muertos del footer quitados
 - SEO básico: `robots.txt`, `sitemap.xml`, meta tags Open Graph/Twitter con imagen propia (el link se ve bien al compartirlo en WhatsApp/Instagram)
 - Correo de contacto del footer actualizado a `xtrmcorps@gmail.com`
-- Dominio: por decisión de Diego, se queda en `xtrm-store.vercel.app` por ahora
-- Aviso de pedidos por correo activo de punta a punta (webhook de Wompi + Resend, verificado en vivo). Si algún día el correo deja de llegar a `xtrmcorps@gmail.com`, el sospechoso número uno es que `onboarding@resend.dev` (dominio de pruebas de Resend) dejó de entregarle — solución: verificar un dominio propio en Resend.
+- Dominio propio: https://www.xtrmoficial.com (DNS en Cloudflare, alojado en la cuenta de Vercel de la marca)
+- Aviso de pedidos por correo (webhook de Wompi + Resend): en el sitio nuevo falta cambiar la URL de eventos en Wompi y confirmarlo con una compra real. Si algún día el correo deja de llegar a `xtrmcorps@gmail.com`, el sospechoso número uno es que `onboarding@resend.dev` (dominio de pruebas de Resend) dejó de entregarle — solución: verificar `xtrmoficial.com` en Resend y definir `ORDER_FROM_EMAIL` en Vercel.

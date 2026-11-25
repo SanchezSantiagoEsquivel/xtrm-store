@@ -1,16 +1,19 @@
-# React + Vite
+# XTRM Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tienda de gorras XTRM: https://www.xtrmoficial.com
 
-Currently, two official plugins are available:
+React + Vite, functions de Vercel en `api/`, pagos con Wompi y avisos de pedido con Resend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```
+npm install
+npm run dev
+npm run lint
+npm run build
+node e2e/webhook.check.mjs   # revisión local de api/, sin red
+```
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Variables de entorno: `.env.example`
+- `npm run test:e2e` exige `E2E_BASE_URL` con un deploy que use llaves de **sandbox** de Wompi
+- `node e2e/api-shim.mjs` sirve `api/` en local junto a `npm run dev` (`vercel dev` no funciona aquí)
+- Los precios están en `src/data/products.js` y en `api/_catalog.js`: cambiar ambos
+- Deploy manual: `vercel deploy --prod`

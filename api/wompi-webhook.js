@@ -92,7 +92,7 @@ async function sendOrderEmail(tx, to, apiKey) {
       'Idempotency-Key': `pedido-${tx.id}`,
     },
     body: JSON.stringify({
-      from: 'XTRM Store <onboarding@resend.dev>',
+      from: process.env.ORDER_FROM_EMAIL || 'XTRM Store <onboarding@resend.dev>',
       to,
       subject: `Nuevo pedido pagado — ${tx.reference}`,
       text: lines.join('\n'),

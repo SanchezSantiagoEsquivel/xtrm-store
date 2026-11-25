@@ -30,7 +30,7 @@ Fuente: `docs/TEXTOS XTRM.pdf` y `docs/Cambios pagina.pdf`
   - Las llaves de sandbox de Wompi ya quedaron guardadas en Vercel (Development y Production) para que esto funcione sin configuración extra.
 
 - [x] Integrado el Web Checkout de Wompi: `api/wompi-integrity.js` (function serverless de Vercel) calcula el total en el servidor y firma la transacción; `Checkout.jsx` redirige a Wompi y verifica el resultado al volver (`?id=`) contra la API pública de Wompi.
-- [ ] **Falta que pongas las llaves reales.** Crea una cuenta en [comercios.wompi.co](https://comercios.wompi.co), copia del dashboard (modo Sandbox para probar):
+- [x] **Llaves reales puestas** (producción). Para referencia: crea una cuenta en [comercios.wompi.co](https://comercios.wompi.co), copia del dashboard (modo Sandbox para probar):
   - `VITE_WOMPI_PUBLIC_KEY` (empieza con `pub_test_`)
   - `WOMPI_INTEGRITY_SECRET` (empieza con `test_integrity_`)
   

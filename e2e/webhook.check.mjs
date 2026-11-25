@@ -2,6 +2,7 @@
 // ni toca Wompi). Correr con: node e2e/webhook.check.mjs
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 
 process.env.WOMPI_EVENTS_SECRET = 'eventos_prueba';
 process.env.WOMPI_INTEGRITY_SECRET = 'integridad_prueba';
@@ -10,6 +11,18 @@ process.env.RESEND_API_KEY = 're_prueba';
 
 const integrity = (await import('../api/wompi-integrity.js')).default;
 const webhook = (await import('../api/wompi-webhook.js')).default;
+
+// Los precios que ve el cliente y los que cobra el servidor deben coincidir.
+// Se lee como texto porque products.js importa imágenes.
+const { CATALOG } = await import('../api/_catalog.js');
+const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
+const shown = [...read('../src/data/products.js').matchAll(/^ {4}id: '([^']+)',[\s\S]*?^ {4}price: (\d+),/gm)]
+  .map(([, id, price]) => [id, Number(price)]);
+assert.deepEqual(shown, Object.entries(CATALOG).map(([id, p]) => [id, p.price]));
+for (const name of ['SHIPPING_FLAT_RATE', 'FREE_SHIPPING_THRESHOLD']) {
+  const value = (path) => read(path).match(new RegExp(`const ${name} = (\\d+);`))[1];
+  assert.equal(value('../src/pages/Checkout.jsx'), value('../api/wompi-integrity.js'), name);
+}
 
 async function call(handler, body) {
   const out = {};
@@ -56,10 +69,13 @@ assert.match(text, /Productos: 2 × XTRM Classic.*1 × FOUNDERS Edition/);
 assert.match(text, /Dirección: Calle 1\n/);
 assert.match(text, /Notas de entrega: Portería/);
 assert.equal(sent[0].headers['Idempotency-Key'], 'pedido-tx-1');
+assert.match(JSON.parse(sent[0].body).from, /onboarding@resend\.dev/);
+process.env.ORDER_FROM_EMAIL = 'XTRM <pedidos@prueba.test>';
 
 // Referencia vieja, sin productos
 await call(webhook, event('APPROVED', 'XTRM-1-2'));
 assert.match(JSON.parse(sent[1].body).text, /Productos: N\/A/);
+assert.equal(JSON.parse(sent[1].body).from, 'XTRM <pedidos@prueba.test>');
 
 // Un pago no aprobado o con firma mala no avisa
 sent = [];
