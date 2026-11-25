@@ -21,11 +21,15 @@ export function buildReference(items) {
   return ['XTRM', Date.now(), Math.floor(Math.random() * 10000), ...codes].join('-');
 }
 
-// Las referencias viejas (sin códigos) devuelven una lista vacía.
-export function describeItems(reference) {
+// Las referencias viejas (sin códigos) devuelven una lista vacía. `product` queda
+// sin definir si el código no existe.
+export function parseItems(reference) {
   return String(reference).split('-').slice(3).map((part) => {
     const [, code, qty] = part.match(/^([A-Z]+)(\d+)$/) ?? [];
-    const product = Object.values(CATALOG).find((p) => p.code === code);
-    return product ? `${qty} × ${product.name}` : part;
+    return { part, qty: Number(qty), product: Object.values(CATALOG).find((p) => p.code === code) };
   });
+}
+
+export function describeItems(reference) {
+  return parseItems(reference).map(({ part, qty, product }) => (product ? `${qty} × ${product.name}` : part));
 }

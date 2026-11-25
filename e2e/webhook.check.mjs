@@ -77,6 +77,30 @@ await call(webhook, event('APPROVED', 'XTRM-1-2'));
 assert.match(JSON.parse(sent[1].body).text, /Productos: N\/A/);
 assert.equal(JSON.parse(sent[1].body).from, 'XTRM <pedidos@prueba.test>');
 
+// Con dominio propio también se le confirma al comprador
+const buyer = event('APPROVED');
+buyer.data.transaction.customer_email = 'ana@prueba.test';
+sent = [];
+assert.equal((await call(webhook, buyer)).status, 200);
+assert.equal(sent.length, 2);
+const receipt = JSON.parse(sent[1].body);
+assert.equal(receipt.to, 'ana@prueba.test');
+assert.equal(receipt.reply_to, 'xtrmcorps@gmail.com');
+assert.equal(sent[1].headers['Idempotency-Key'], 'comprador-tx-1');
+assert.match(receipt.text, /2 × XTRM Classic.*: \$128\.000 COP\n1 × FOUNDERS.*: \$115\.000 COP\nEnvío: Gratis\nTotal pagado: \$243\.000 COP/);
+buyer.data.transaction.reference = 'XTRM-1-2-CLB1';
+buyer.data.transaction.amount_in_cents = 7_600_000;
+await call(webhook, buyer);
+assert.match(JSON.parse(sent[3].body).text, /Envío: \$12\.000 COP\nTotal pagado: \$76\.000 COP/);
+
+// Sin dominio propio no se le escribe, porque Resend lo rechazaría
+const from = process.env.ORDER_FROM_EMAIL;
+delete process.env.ORDER_FROM_EMAIL;
+sent = [];
+await call(webhook, buyer);
+assert.equal(sent.length, 1);
+process.env.ORDER_FROM_EMAIL = from;
+
 // Un pago no aprobado o con firma mala no avisa
 sent = [];
 assert.equal((await call(webhook, event('DECLINED'))).status, 200);
