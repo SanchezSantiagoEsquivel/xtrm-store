@@ -133,9 +133,9 @@ test.describe('/api/wompi-integrity', () => {
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    // XTRM Classic 64.000 + envío 12.000 = 76.000, sin importar lo que mandó el cliente
-    expect(body.total).toBe(76_000);
-    expect(body.amountInCents).toBe(7_600_000);
+    // XTRM Classic 20.000 (temporal) + envío 12.000 = 32.000, sin importar lo que mandó el cliente
+    expect(body.total).toBe(32_000);
+    expect(body.amountInCents).toBe(3_200_000);
     expect(body.signature).toMatch(/^[a-f0-9]{64}$/);
   });
 

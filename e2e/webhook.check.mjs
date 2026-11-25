@@ -41,7 +41,7 @@ const order = await call(integrity, {
     { productId: 'xtrm-classic-blanco', quantity: 1 },
   ],
 });
-assert.equal(order.body.total, 243_000);
+assert.equal(order.body.total, 167_000); // temporal con Classic a 20.000; con 64.000 era 243_000
 assert.match(order.body.reference, /^XTRM-\d+-\d+-CLB2-FDM1$/);
 for (const productId of ['no-existe', 'toString', '__proto__']) {
   assert.equal((await call(integrity, { items: [{ productId, quantity: 1 }] })).status, 400);
