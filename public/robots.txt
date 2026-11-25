@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /checkout
 
-Sitemap: https://xtrm-store.vercel.app/sitemap.xml
+Sitemap: https://www.xtrmoficial.com/sitemap.xml

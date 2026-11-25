@@ -11,7 +11,7 @@ export default defineConfig({
   retries: 1,
   reporter: 'list',
   use: {
-    baseURL: process.env.E2E_BASE_URL || 'https://xtrm-store.vercel.app',
+    baseURL: process.env.E2E_BASE_URL || 'https://www.xtrmoficial.com',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
