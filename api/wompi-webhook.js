@@ -20,9 +20,10 @@ export default async function handler(req, res) {
   const notifyEmail = process.env.ORDER_NOTIFICATION_EMAIL || 'xtrmcorps@gmail.com';
 
   if (!eventsSecret || !resendKey) {
-    // Todavía no está configurado del lado del servidor. Respondemos 200 para
-    // que Wompi no reintente en bucle, pero no procesamos el evento.
-    res.status(200).json({ received: true, processed: false });
+    // Sin llaves no se puede avisar: con un error queda registrado y Wompi
+    // reintenta, en vez de perder el pedido en silencio.
+    console.error('Faltan WOMPI_EVENTS_SECRET o RESEND_API_KEY');
+    res.status(500).json({ error: 'El webhook no está configurado en el servidor' });
     return;
   }
 

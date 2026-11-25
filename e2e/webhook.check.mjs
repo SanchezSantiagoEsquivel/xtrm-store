@@ -74,4 +74,8 @@ assert.equal((await call(webhook, event('APPROVED'))).status, 500);
 reply = () => { throw new Error('sin red'); };
 assert.equal((await call(webhook, event('APPROVED'))).status, 500);
 
+// Sin llaves tampoco se responde 200
+delete process.env.RESEND_API_KEY;
+assert.equal((await call(webhook, event('APPROVED'))).status, 500);
+
 console.log('OK');

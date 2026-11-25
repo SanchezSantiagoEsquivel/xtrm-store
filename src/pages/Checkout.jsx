@@ -198,9 +198,10 @@ export default function Checkout() {
           <span className="checkout__check">✓</span>
           <h1>Pedido confirmado</h1>
           <p>
-            Gracias, {form.fullName.split(' ')[0]}. Tu pedido{' '}
+            Gracias{form.fullName && `, ${form.fullName.trim().split(' ')[0]}`}. Tu pedido{' '}
             <strong>{orderId}</strong> fue recibido. Guarda este número.
-            Te enviaremos el número de guía a tu correo apenas se despache.
+            Te enviaremos el número de guía a{' '}
+            {form.email ? <strong>{form.email}</strong> : 'tu correo'} apenas se despache.
           </p>
           <Link to="/tienda" className="btn btn-primary">Seguir comprando</Link>
         </div>
