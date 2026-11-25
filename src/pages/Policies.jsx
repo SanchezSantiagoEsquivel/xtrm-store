@@ -1,12 +1,4 @@
-import { Link } from 'react-router-dom';
 import './Policies.css';
-
-// Los datos del vendedor van en variables de entorno porque el repo es público.
-const SELLER = [
-  ['Vendedor', import.meta.env.VITE_SELLER_NAME],
-  ['NIT', import.meta.env.VITE_SELLER_NIT],
-  ['Dirección de notificación', import.meta.env.VITE_SELLER_ADDRESS],
-].filter(([, value]) => value);
 
 function Contact() {
   return (
@@ -23,16 +15,6 @@ export default function Policies() {
       <div className="container policies__content">
         <h1>Políticas de la tienda</h1>
         <p>Vigentes desde el 25 de noviembre de 2026.</p>
-
-        <section id="vendedor">
-          <h2>Quién vende</h2>
-          <ul>
-            {SELLER.map(([label, value]) => (
-              <li key={label}>{label}: {value}</li>
-            ))}
-            <li>Contacto: <Contact /></li>
-          </ul>
-        </section>
 
         <section id="compra">
           <h2>Compra y pago</h2>
@@ -145,8 +127,8 @@ export default function Policies() {
         <section id="datos">
           <h2>Tratamiento de datos personales</h2>
           <p>
-            El responsable es el vendedor identificado en <Link to="/politicas#vendedor">Quién vende</Link>,
-            que también atiende las solicitudes sobre datos (Ley 1581 de 2012).
+            El responsable es XTRM Store, que también atiende las solicitudes sobre datos
+            (Ley 1581 de 2012).
           </p>
           <ul>
             <li>Qué datos: nombre, correo, teléfono, dirección de entrega, notas y detalle del pedido.</li>

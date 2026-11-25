@@ -36,7 +36,6 @@ export default function Footer() {
           <Link to="/politicas#garantia">Garantía</Link>
           <Link to="/politicas#quejas">Quejas y reclamos</Link>
           <Link to="/politicas#datos">Datos personales</Link>
-          <Link to="/politicas#vendedor">Quién vende</Link>
           <a href="https://www.sic.gov.co" target="_blank" rel="noreferrer">
             Superintendencia de Industria y Comercio
           </a>
