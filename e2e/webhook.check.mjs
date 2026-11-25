@@ -49,7 +49,7 @@ for (const productId of ['no-existe', 'toString', '__proto__']) {
 
 function event(status, reference = order.body.reference) {
   const transaction = {
-    id: 'tx-1', status, reference, amount_in_cents: 24_300_000,
+    id: 'tx-1', status, reference, amount_in_cents: order.body.amountInCents,
     shipping_address: { address_line_1: 'Calle 1', address_line_2: 'Portería', city: 'Cali', region: 'Valle' },
   };
   const checksum = createHash('sha256').update(`tx-1${status}123eventos_prueba`).digest('hex');
@@ -87,11 +87,11 @@ const receipt = JSON.parse(sent[1].body);
 assert.equal(receipt.to, 'ana@prueba.test');
 assert.equal(receipt.reply_to, 'xtrmcorps@gmail.com');
 assert.equal(sent[1].headers['Idempotency-Key'], 'comprador-tx-1');
-assert.match(receipt.text, /2 × XTRM Classic.*: \$128\.000 COP\n1 × FOUNDERS.*: \$115\.000 COP\nEnvío: Gratis\nTotal pagado: \$243\.000 COP/);
+assert.match(receipt.text, /2 × XTRM Classic.*: \$40\.000 COP\n1 × FOUNDERS.*: \$115\.000 COP\nEnvío: \$12\.000 COP\nTotal pagado: \$167\.000 COP/); // temporal con Classic a 20.000
 buyer.data.transaction.reference = 'XTRM-1-2-CLB1';
-buyer.data.transaction.amount_in_cents = 7_600_000;
+buyer.data.transaction.amount_in_cents = 3_200_000;
 await call(webhook, buyer);
-assert.match(JSON.parse(sent[3].body).text, /Envío: \$12\.000 COP\nTotal pagado: \$76\.000 COP/);
+assert.match(JSON.parse(sent[3].body).text, /Envío: \$12\.000 COP\nTotal pagado: \$32\.000 COP/);
 
 // Sin dominio propio no se le escribe, porque Resend lo rechazaría
 const from = process.env.ORDER_FROM_EMAIL;
