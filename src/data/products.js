@@ -25,7 +25,7 @@ export const PRODUCTS = [
     slug: 'classic-blanco',
     name: 'XTRM Classic',
     collection: COLLECTIONS.CLASSIC,
-    price: 20000, // ponytail: temporal para la compra de prueba; volver a 64000
+    price: 40000,
     compareAtPrice: 80000,
     colors: [
       {

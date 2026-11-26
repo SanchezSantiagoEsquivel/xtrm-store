@@ -4,7 +4,7 @@
 // si el catálogo crece más allá de estos 3.
 // `code` va dentro de la referencia de pago: solo letras, único, y no cambiarlo.
 export const CATALOG = {
-  'xtrm-classic-blanco': { code: 'CLB', name: 'XTRM Classic (Negro / Blanco)', price: 20000 }, // temporal, volver a 64000
+  'xtrm-classic-blanco': { code: 'CLB', name: 'XTRM Classic (Negro / Blanco)', price: 40000 },
   'xtrm-blackout-fuego': { code: 'BLF', name: 'Blackout Fuego', price: 85000 },
   'xtrm-founders-morado': { code: 'FDM', name: 'FOUNDERS Edition (Black / Purple)', price: 115000 },
 };
